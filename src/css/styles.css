@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #ffffff;
+}
+
+.search-form {
+  padding: 25px;
+  background-color: #abd4e0;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}

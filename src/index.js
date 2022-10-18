@@ -1,3 +1,4 @@
+import './css/styles.css';
 import Notiflix from 'notiflix';
 import cardTemplate from './js/templates/cardTemplate.hbs';
 import fetchItems from './js/fetchItems';
