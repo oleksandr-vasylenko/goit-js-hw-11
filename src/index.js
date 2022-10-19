@@ -17,3 +17,5 @@ function onSubmit(e) {
   e.preventDefault();
   console.log(e);
 }
+
+function renderMarkup() {}
