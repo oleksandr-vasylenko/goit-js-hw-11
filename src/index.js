@@ -6,7 +6,6 @@ import { fetchItems } from './js/fetchItems';
 const formRef = document.querySelector('.search-form');
 const galleryListRef = document.querySelector('.gallery-list');
 
-// formRef.addEventListener('input', oninput);
 formRef.addEventListener('submit', onSubmit);
 
 function onSubmit(e) {
@@ -15,8 +14,8 @@ function onSubmit(e) {
   fetchItems(searchText).then(renderMarkup).catch(onError);
 }
 
-function renderMarkup(foundData) {
-  galleryListRef.insertAdjacentHTML('beforeend', card(foundData));
+function renderMarkup(data) {
+  galleryListRef.insertAdjacentHTML('beforeend', card(data));
 }
 
 function onError() {
