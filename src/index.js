@@ -1,10 +1,39 @@
 import './css/styles.css';
 import Notiflix from 'notiflix';
-import card from './js/templates/card.hbs';
 import { fetchItems } from './js/fetchItems';
 
 const formRef = document.querySelector('.search-form');
 const galleryListRef = document.querySelector('.gallery-list');
+
+const cardTemplate = ({
+  webformatURL,
+  largeImageURL,
+  tags,
+  likes,
+  views,
+  comments,
+  downloads,
+}) =>
+  `<li>
+    <div class="photo-card">
+        <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+        <div class="info">
+            <p class="info-item">
+            <b>Likes: ${likes}</b>
+            </p>
+            <p class="info-item">
+            <b>Views: ${views}</b>
+            </p>
+            <p class="info-item">
+            <b>Comments: ${comments}</b>
+            </p>
+            <p class="info-item">
+            <b>Downloads: ${downloads}</b>
+            </p>
+        </div>
+    </div>
+</li>
+`;
 
 formRef.addEventListener('submit', onSubmit);
 
@@ -15,7 +44,9 @@ function onSubmit(e) {
 }
 
 function renderMarkup(data) {
-  galleryListRef.insertAdjacentHTML('beforeend', card(data));
+  console.log(data);
+  const cardMarkup = data.map(item => cardTemplate(item)).join('');
+  galleryListRef.insertAdjacentHTML('beforeend', cardMarkup);
 }
 
 function onError() {
