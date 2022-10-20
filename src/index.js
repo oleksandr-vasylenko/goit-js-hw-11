@@ -3,12 +3,11 @@ import './css/styles.css';
 import Notiflix from 'notiflix';
 import card from './js/templates/card.hbs';
 
-const searchTextRef = document.querySelector('.search-form');
-const searchBtnRef = document.querySelector('.search-button');
+const formRef = document.querySelector('.search-form');
 const galleryListRef = document.querySelector('.gallery-list');
 
-searchTextRef.addEventListener('input', oninput);
-searchBtnRef.addEventListener('click', onSubmit);
+formRef.addEventListener('input', oninput);
+formRef.addEventListener('submit', onSubmit);
 
 const axios = require('axios').default;
 
@@ -26,21 +25,17 @@ async function getItems(searchText) {
   }
 }
 
-// function oninput(e) {
-//   const searchText = e.target.value.trim().toLowerCase();
-//   console.log(searchText);
-// }
-
 function onSubmit(e) {
   e.preventDefault();
-  const searchText = e.target.value.trim().toLowerCase();
+  const searchText = e.target.value;
   getItems(searchText).then(renderMarkup).catch(onError);
+  renderMarkup(searchText);
 }
 
-function renderMarkup(foundData) {
-  galleryListRef.insertAdjacentHTML('beforeend', card(foundData));
+function renderMarkup(searchText) {
+  galleryListRef.insertAdjacentHTML('beforeend', card(searchText));
 }
 
 function onError() {
-  Notiflix.Notify.failure('Oops, there is no country with that name');
+  Notiflix.Notify.failure('Error');
 }
