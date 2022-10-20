@@ -47,6 +47,8 @@ function onSubmit(e) {
   const searchText = e.target[0].value.trim().toLowerCase();
 
   fetchItems(searchText, page).then(renderMarkup).catch(onError);
+
+  let inputedText = localStorage.setItem('savedSearch', searchText);
 }
 
 function renderMarkup(data) {
@@ -67,5 +69,6 @@ let page = 1;
 
 function onLoadMore() {
   page += 1;
-  fetchItems(searchText, page).then(renderMarkup).catch(onError);
+  let inputedText = localStorage.getItem('savedSearch');
+  fetchItems(inputedText, page).then(renderMarkup).catch(onError);
 }
