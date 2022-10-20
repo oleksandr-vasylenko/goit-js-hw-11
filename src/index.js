@@ -43,6 +43,8 @@ loadMoreRef.addEventListener('click', onLoadMore);
 
 function onSubmit(e) {
   e.preventDefault();
+  page = 1;
+  loadMoreRef.setAttribute('hidden', true);
   galleryListRef.innerHTML = '';
 
   const searchText = e.target[0].value.trim().toLowerCase();
@@ -63,7 +65,7 @@ function renderMarkup(data) {
   if (data.length === 40) {
     loadMoreRef.removeAttribute('hidden');
   } else if (data.length > 0) {
-    Notiflix.Notify.failure(
+    Notiflix.Notify.info(
       "We're sorry, but you've reached the end of search results."
     );
     loadMoreRef.setAttribute('hidden', true);
