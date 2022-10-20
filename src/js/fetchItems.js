@@ -8,7 +8,7 @@ export async function fetchItems(searchText) {
     const response = await axios.get(
       `${BASE_URL}?key=${KEY}&q=${searchText}&image_type=photo&orientation=horizontal&safesearch=true`
     );
-    console.log(response);
+    return response.data.hits;
   } catch (error) {
     console.error(error);
   }

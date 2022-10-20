@@ -44,7 +44,6 @@ function onSubmit(e) {
 }
 
 function renderMarkup(data) {
-  console.log(data);
   const cardMarkup = data.map(item => cardTemplate(item)).join('');
   galleryListRef.insertAdjacentHTML('beforeend', cardMarkup);
 }
