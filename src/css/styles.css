@@ -9,6 +9,24 @@ body {
 
 .search-form {
   padding: 25px;
-  background-color: #abd4e0;
+  background-color: #bedee7;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.gallery-list {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.info {
+  display: flex;
+}
+
+.list-item {
+  background-color: #bedee7;
+  padding: 15px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }

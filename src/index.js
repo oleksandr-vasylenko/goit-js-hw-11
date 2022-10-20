@@ -14,9 +14,9 @@ const cardTemplate = ({
   comments,
   downloads,
 }) =>
-  `<li>
+  `<li class='list-item'>
     <div class="photo-card">
-        <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+        <img src="${webformatURL}" alt="${tags}" loading="lazy" width="500px" />
         <div class="info">
             <p class="info-item">
             <b>Likes: ${likes}</b>
