@@ -4,6 +4,7 @@ import { fetchItems } from './js/fetchItems';
 
 const formRef = document.querySelector('.search-form');
 const galleryListRef = document.querySelector('.gallery-list');
+const loadMoreRef = document.querySelector('.load-more');
 
 const cardTemplate = ({
   webformatURL,
@@ -36,12 +37,16 @@ const cardTemplate = ({
 `;
 
 formRef.addEventListener('submit', onSubmit);
+loadMoreRef.addEventListener('click', onLoadMore);
 
 function onSubmit(e) {
   e.preventDefault();
+
   galleryListRef.innerHTML = '';
+
   const searchText = e.target[0].value.trim().toLowerCase();
-  fetchItems(searchText).then(renderMarkup).catch(onError);
+
+  fetchItems(searchText, page).then(renderMarkup).catch(onError);
 }
 
 function renderMarkup(data) {
@@ -56,4 +61,11 @@ function renderMarkup(data) {
 
 function onError() {
   Notiflix.Notify.failure('Error');
+}
+
+let page = 1;
+
+function onLoadMore() {
+  page += 1;
+  fetchItems(searchText, page).then(renderMarkup).catch(onError);
 }
