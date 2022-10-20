@@ -39,11 +39,17 @@ formRef.addEventListener('submit', onSubmit);
 
 function onSubmit(e) {
   e.preventDefault();
+  galleryListRef.innerHTML = '';
   const searchText = e.target[0].value.trim().toLowerCase();
   fetchItems(searchText).then(renderMarkup).catch(onError);
 }
 
 function renderMarkup(data) {
+  if (data.length === 0) {
+    Notiflix.Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+  }
   const cardMarkup = data.map(item => cardTemplate(item)).join('');
   galleryListRef.insertAdjacentHTML('beforeend', cardMarkup);
 }
