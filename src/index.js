@@ -6,6 +6,8 @@ const formRef = document.querySelector('.search-form');
 const galleryListRef = document.querySelector('.gallery-list');
 const loadMoreRef = document.querySelector('.load-more');
 
+let page = 1;
+
 const cardTemplate = ({
   webformatURL,
   largeImageURL,
@@ -41,11 +43,9 @@ loadMoreRef.addEventListener('click', onLoadMore);
 
 function onSubmit(e) {
   e.preventDefault();
-
   galleryListRef.innerHTML = '';
 
   const searchText = e.target[0].value.trim().toLowerCase();
-
   fetchItems(searchText, page).then(renderMarkup).catch(onError);
 
   let inputedText = localStorage.setItem('savedSearch', searchText);
@@ -59,16 +59,28 @@ function renderMarkup(data) {
   }
   const cardMarkup = data.map(item => cardTemplate(item)).join('');
   galleryListRef.insertAdjacentHTML('beforeend', cardMarkup);
+
+  if (data.length === 40) {
+    loadMoreRef.removeAttribute('hidden');
+  } else if (data.length > 0) {
+    Notiflix.Notify.failure(
+      "We're sorry, but you've reached the end of search results."
+    );
+    loadMoreRef.setAttribute('hidden', true);
+  }
 }
 
 function onError() {
   Notiflix.Notify.failure('Error');
 }
 
-let page = 1;
-
 function onLoadMore() {
   page += 1;
   let inputedText = localStorage.getItem('savedSearch');
-  fetchItems(inputedText, page).then(renderMarkup).catch(onError);
+  fetchItems(inputedText, page)
+    .then(data => {
+      renderMarkup(data);
+      console.log(data.length);
+    })
+    .catch(onError);
 }
