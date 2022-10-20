@@ -1,23 +1,19 @@
 {{#each this}}
   <li>
     <div class='photo-card'>
-      <img
-        src='{{data.hits.webformatURL}}'
-        alt='{{data.hits.tags}}'
-        loading='lazy'
-      />
+      <img src='{{webformatURL}}' alt='{{tags}}' loading='lazy' />
       <div class='info'>
         <p class='info-item'>
-          <b>Likes: '{{data.hits.likes}}'</b>
+          <b>Likes: '{{likes}}'</b>
         </p>
         <p class='info-item'>
-          <b>Views: '{{data.hits.views}}'</b>
+          <b>Views: '{{views}}'</b>
         </p>
         <p class='info-item'>
-          <b>Comments: '{{data.hits.comments}}'</b>
+          <b>Comments: '{{comments}}'</b>
         </p>
         <p class='info-item'>
-          <b>Downloads: '{{data.hits.downloads}}'</b>
+          <b>Downloads: '{{downloads}}'</b>
         </p>
       </div>
     </div>
