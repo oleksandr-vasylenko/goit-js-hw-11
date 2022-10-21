@@ -24,16 +24,16 @@ const cardTemplate = ({
       </div>
     <div class="info">
             <p class="info-item">
-            <b>Likes: ${likes}</b>
+            <b>Likes: </b><span class="info-value">${likes}</span>
             </p>
             <p class="info-item">
-            <b>Views: ${views}</b>
+            <b>Views: </b><span class="info-value">${views}</span>
             </p>
             <p class="info-item">
-            <b>Comments: ${comments}</b>
+            <b>Comments: </b><span class="info-value">${comments}</span>
             </p>
             <p class="info-item">
-            <b>Downloads: ${downloads}</b>
+            <b>Downloads: </b><span class="info-value">${downloads}</span>
             </p>
         </div>
     </div>
