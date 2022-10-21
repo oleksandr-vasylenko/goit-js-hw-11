@@ -19,8 +19,10 @@ const cardTemplate = ({
 }) =>
   `<li class='list-item'>
     <div class="photo-card">
-        <img src="${webformatURL}" alt="${tags}" loading="lazy" width="500px" />
-        <div class="info">
+      <div class="photo-container">    
+       <img class="photo-img" src="${webformatURL}" alt="${tags}" loading="lazy" />
+      </div>
+    <div class="info">
             <p class="info-item">
             <b>Likes: ${likes}</b>
             </p>
@@ -48,9 +50,12 @@ function onSubmit(e) {
   galleryListRef.innerHTML = '';
 
   const searchText = e.target[0].value.trim().toLowerCase();
-  fetchItems(searchText, page).then(renderMarkup).catch(onError);
-
-  let inputedText = localStorage.setItem('savedSearch', searchText);
+  if (searchText === '') {
+    Notiflix.Notify.failure('Please specify the content you are searching for');
+  } else {
+    fetchItems(searchText, page).then(renderMarkup).catch(onError);
+    let inputedText = localStorage.setItem('savedSearch', searchText);
+  }
 }
 
 function renderMarkup(data) {
