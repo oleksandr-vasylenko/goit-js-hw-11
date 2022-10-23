@@ -1,44 +1,14 @@
 import './css/styles.css';
 import Notiflix from 'notiflix';
 import { fetchItems } from './js/fetchItems';
+import { cardTemplate } from './js/cardTemplate';
 
 const formRef = document.querySelector('.search-form');
 const galleryListRef = document.querySelector('.gallery-list');
 const loadMoreRef = document.querySelector('.load-more');
 
 let page = 1;
-
-const cardTemplate = ({
-  webformatURL,
-  largeImageURL,
-  tags,
-  likes,
-  views,
-  comments,
-  downloads,
-}) =>
-  `<li class='list-item'>
-    <div class="photo-card">
-      <div class="photo-container">    
-       <img class="photo-img" src="${webformatURL}" alt="${tags}" loading="lazy" />
-      </div>
-    <div class="info">
-            <p class="info-item">
-            <b>Likes: </b><span class="info-value">${likes}</span>
-            </p>
-            <p class="info-item">
-            <b>Views: </b><span class="info-value">${views}</span>
-            </p>
-            <p class="info-item">
-            <b>Comments: </b><span class="info-value">${comments}</span>
-            </p>
-            <p class="info-item">
-            <b>Downloads: </b><span class="info-value">${downloads}</span>
-            </p>
-        </div>
-    </div>
-</li>
-`;
+let searchText = '';
 
 formRef.addEventListener('submit', onSubmit);
 loadMoreRef.addEventListener('click', onLoadMore);
@@ -46,15 +16,19 @@ loadMoreRef.addEventListener('click', onLoadMore);
 function onSubmit(e) {
   e.preventDefault();
   page = 1;
-  loadMoreRef.setAttribute('hidden', true);
-  galleryListRef.innerHTML = '';
 
-  const searchText = e.target[0].value.trim().toLowerCase();
-  if (searchText === '') {
-    Notiflix.Notify.failure('Please specify the content you are searching for');
-  } else {
-    fetchItems(searchText, page).then(renderMarkup).catch(onError);
-    let inputedText = localStorage.setItem('savedSearch', searchText);
+  if (!searchText.includes(e.target[0].value.trim().toLowerCase())) {
+    loadMoreRef.setAttribute('hidden', true);
+    galleryListRef.innerHTML = '';
+
+    searchText = e.target[0].value.trim().toLowerCase();
+    if (searchText === '') {
+      Notiflix.Notify.failure(
+        'Please specify the content you are searching for'
+      );
+    } else {
+      fetchItems(searchText, page).then(renderMarkup).catch(onError);
+    }
   }
 }
 
@@ -83,7 +57,7 @@ function onError() {
 
 function onLoadMore() {
   page += 1;
-  let inputedText = localStorage.getItem('savedSearch');
+  let inputedText = searchText;
   fetchItems(inputedText, page)
     .then(data => {
       renderMarkup(data);
